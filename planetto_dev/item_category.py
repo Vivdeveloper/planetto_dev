@@ -16,6 +16,13 @@ def calculate_weight(doc, method=None):
 
         weight = (dia * dia * height * 1) / 162300
 
+    elif category == "ACTUAL DIE WT":
+        length = doc.custom_length or 0
+        width = doc.custom_width or 0
+        height = doc.custom_height_ or 0
+
+        weight = length * width * height * 0.00000785 * 0.5
+
     # Set calculated weight
     doc.weight_per_unit = weight
 
