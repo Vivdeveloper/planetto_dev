@@ -44,7 +44,6 @@ def po_calculation_by_weight(doc, method):
         rate = float(item.rate)
 
         item.amount = weight * rate
-    doc.calculate_taxes_and_totals()
     
     # Proof popup
     frappe.msgprint("✅ Strict weight-based calculation applied")
