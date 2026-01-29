@@ -47,7 +47,6 @@ def po_calculation_by_weight(doc, method):
         item.base_amount= weight * rate
         item.net_amount= weight * rate
         item.base_net_amount= weight * rate
-        item.taxable_value= weight * rate
     
     # Proof popup
     frappe.msgprint("✅ Strict weight-based calculation applied")
