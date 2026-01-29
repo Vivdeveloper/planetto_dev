@@ -253,7 +253,3 @@ doc_events = {
     }
 }
 
-
-override_doctype_class = {
-    "ItemGSTDetails": "planetto_dev.gst_override.CustomItemGSTDetails"
-}
