@@ -244,6 +244,30 @@ app_license = "mit"
 
 
 
+# doc_events = {
+#     "Item": {
+#         "validate": "planetto_dev.item_category.calculate_weight"
+#     },
+#     "Purchase Order": {
+#         "on_update": "planetto_dev.calculation.po_calculation_by_weight",
+#     "before_submit": "planetto_dev.calculation.po_calculation_by_weight"
+#     }
+
+# }
+
+# doc_events = {
+#     "Item": {
+#         "validate": "planetto_dev.item_category.calculate_weight"
+#     },
+#     "Purchase Order": {
+#         "on_update": "planetto_dev.calculation.po_calculation_by_weight",
+#         "before_submit": "planetto_dev.calculation.po_calculation_by_weight"
+#     }
+# }
+
+# before_request = ["planetto_dev.gst_patch.apply_gst_patch"]
+
+
 doc_events = {
     "Item": {
         "validate": "planetto_dev.item_category.calculate_weight"
@@ -252,4 +276,3 @@ doc_events = {
         "validate": "planetto_dev.calculation.po_calculation_by_weight"
     }
 }
-

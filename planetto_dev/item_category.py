@@ -24,7 +24,7 @@ def calculate_weight(doc, method=None):
         weight = length * width * height * 0.00000785 * 0.5
 
     # Set calculated weight
-    doc.weight_per_unit = weight
+    doc.weight_per_unit = round(weight, 2)
 
     # ✅ Auto set UOM when weight is calculated
     if weight > 0:
