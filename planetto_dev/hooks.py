@@ -273,6 +273,6 @@ doc_events = {
         "validate": "planetto_dev.item_category.calculate_weight"
     },
     "Purchase Order": {
-        "validate": "planetto_dev.calculation.po_calculation_by_weight"
+        "before_save": "planetto_dev.calculation.po_calculation_by_weight"
     }
 }
