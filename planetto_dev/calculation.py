@@ -327,8 +327,6 @@ def po_calculation_by_weight(doc, method):
     doc.base_total = total_doc_amount
     doc.base_net_total = total_doc_amount
 
-    frappe.msgprint("✅ Weight/custom pricing applied")
-
 
 
 
