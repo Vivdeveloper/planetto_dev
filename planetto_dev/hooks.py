@@ -185,6 +185,10 @@ app_license = "mit"
 # 	"Task": "planetto_dev.task.get_dashboard_data"
 # }
 
+override_doctype_class = {
+    "Timesheet": "planetto_dev.overrides.custom_timesheet.CustomTimesheet"
+}
+
 # exempt linked doctypes from being automatically cancelled
 #
 # auto_cancel_exempted_doctypes = ["Auto Repeat"]
