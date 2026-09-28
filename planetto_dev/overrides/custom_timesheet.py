@@ -5,10 +5,8 @@ class CustomTimesheet(Timesheet):
     def validate_overlap_for(self, *args, **kwargs):
         # Disable overlap validation completely
         return
-
     def set_dates(self):
         """
-        Override the set_dates method to bypass the standard validation.
+        Bypass standard date validation
         """
         pass
-		
