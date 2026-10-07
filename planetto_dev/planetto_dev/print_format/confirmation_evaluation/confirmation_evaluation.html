@@ -1,0 +1,240 @@
+<style>
+	.print-format {
+		margin-top: 5mm;
+		margin-bottom: 5mm;
+		margin-left: 6mm;
+		margin-right: 6mm;
+		padding: 0;
+		font-size: 10pt;
+	}
+
+	@media print {
+		@page {
+			size: A4 landscape;
+			margin: 5mm 6mm;
+		}
+	}
+
+	.ce-print {
+		font-family: Calibri, Arial, Helvetica, sans-serif;
+		font-size: 10px;
+		color: #000;
+		line-height: 1.25;
+		width: 100%;
+	}
+
+	.ce-print * {
+		box-sizing: border-box;
+	}
+
+	.ce-title {
+		text-align: center;
+		font-size: 14px;
+		font-weight: 700;
+		text-decoration: underline;
+		text-transform: uppercase;
+		margin: 0 0 6px 0;
+		letter-spacing: 0.3px;
+	}
+
+	.ce-meta {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 6px;
+		font-size: 10px;
+	}
+
+	.ce-meta td {
+		border: none;
+		padding: 1px 4px 1px 0;
+		vertical-align: top;
+		width: 25%;
+	}
+
+	.ce-meta .lbl {
+		font-weight: 700;
+	}
+
+	.ce-table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 8px;
+		table-layout: fixed;
+		font-size: 9px;
+		page-break-inside: avoid;
+	}
+
+	.ce-table th,
+	.ce-table td {
+		border: 1px solid #000;
+		padding: 3px 4px;
+		vertical-align: top;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+		hyphens: auto;
+	}
+
+	.ce-table th {
+		background: #f2f2f2;
+		font-weight: 700;
+		text-align: center;
+		font-size: 9px;
+		padding: 4px 2px;
+		line-height: 1.2;
+	}
+
+	.ce-table .sr {
+		width: 3.5%;
+		text-align: center;
+		padding: 2px;
+	}
+
+	.ce-table .criteria {
+		width: 11%;
+		font-weight: 600;
+		font-size: 9px;
+	}
+
+	.ce-table .desc {
+		width: 14.5%;
+		font-size: 8.5px;
+		line-height: 1.2;
+	}
+
+	.ce-table .rating {
+		width: 4.5%;
+		text-align: center;
+		font-weight: 700;
+		font-size: 11px;
+		vertical-align: middle;
+	}
+
+	.ce-table .selected {
+		background: #dbeafe;
+	}
+
+	.ce-table tbody tr {
+		page-break-inside: avoid;
+	}
+
+	.ce-summary {
+		width: 100%;
+		border-collapse: collapse;
+		margin-top: 0;
+		font-size: 10px;
+		page-break-inside: avoid;
+	}
+
+	.ce-summary td {
+		border: 1px solid #000;
+		padding: 5px 6px;
+		vertical-align: top;
+	}
+
+	.ce-summary .lbl {
+		font-weight: 700;
+		width: 16%;
+		background: #f2f2f2;
+	}
+
+	.ce-sign {
+		width: 100%;
+		border: none !important;
+		margin-top: 16px;
+		font-size: 10px;
+		page-break-inside: avoid;
+	}
+
+	.ce-sign td {
+		border: none !important;
+		width: 50%;
+		vertical-align: top;
+	}
+
+	.ce-sign .line {
+		border-top: 1px solid #000;
+		width: 45%;
+		margin-top: 22px;
+	}
+
+	.ce-sign .role {
+		font-weight: 700;
+		margin-top: 4px;
+	}
+</style>
+
+{% set rows = doc.confirmation_evaluation_table or [] %}
+
+<div class="ce-print">
+	<div class="ce-title">Confirmation Evaluation</div>
+
+	<table class="ce-meta">
+		<tr>
+			<td><span class="lbl">Document:</span> {{ doc.name }}</td>
+			<td><span class="lbl">Employee ID:</span> {{ doc.employee_id or "" }}</td>
+			<td><span class="lbl">Employee Name:</span> {{ doc.employee_name or "" }}</td>
+			<td><span class="lbl">Designation:</span> {{ doc.employee_designation or "" }}</td>
+		</tr>
+		<tr>
+			<td><span class="lbl">Department:</span> {{ doc.department or "" }}</td>
+			<td><span class="lbl">Date of Joining:</span> {% if doc.date_of_joining %}{{ frappe.utils.formatdate(doc.date_of_joining) }}{% endif %}</td>
+			<td><span class="lbl">Score %:</span> {{ "%.2f"|format(frappe.utils.flt(doc.percentage or 0)) }}%</td>
+			<td><span class="lbl">Recommendation:</span> {{ doc.recommendation or "" }}</td>
+		</tr>
+	</table>
+
+	<table class="ce-table">
+		<thead>
+			<tr>
+				<th class="sr">Sr.</th>
+				<th class="criteria">Criteria</th>
+				<th class="desc">1 - Poor</th>
+				<th class="desc">2 - Fair</th>
+				<th class="desc">3 - Good</th>
+				<th class="desc">4 - Very Good</th>
+				<th class="desc">5 - Excellent</th>
+				<th class="rating">Rating</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in rows %}
+			<tr>
+				<td class="sr">{{ row.sr_no or loop.index }}</td>
+				<td class="criteria">{{ row.evaluation_criteria or "" }}</td>
+				<td class="desc {% if row.rating == '1' or row.rating == 1 %}selected{% endif %}">{{ row.description_1 or "" }}</td>
+				<td class="desc {% if row.rating == '2' or row.rating == 2 %}selected{% endif %}">{{ row.description_2 or "" }}</td>
+				<td class="desc {% if row.rating == '3' or row.rating == 3 %}selected{% endif %}">{{ row.description_3 or "" }}</td>
+				<td class="desc {% if row.rating == '4' or row.rating == 4 %}selected{% endif %}">{{ row.description_4 or "" }}</td>
+				<td class="desc {% if row.rating == '5' or row.rating == 5 %}selected{% endif %}">{{ row.description_5 or "" }}</td>
+				<td class="rating">{{ row.rating or "" }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<table class="ce-summary">
+		<tr>
+			<td class="lbl">Score %</td>
+			<td>{{ "%.2f"|format(frappe.utils.flt(doc.percentage or 0)) }}%</td>
+			<td class="lbl">Recommendation</td>
+			<td>{{ doc.recommendation or "" }}</td>
+		</tr>
+		<tr>
+			<td class="lbl">Evaluator Remarks</td>
+			<td colspan="3">{{ doc.evaluator_remarks or "" }}</td>
+		</tr>
+	</table>
+
+	<table class="ce-sign">
+		<tr>
+			<td>
+				<div class="line"></div>
+				<div class="role">Evaluator</div>
+			</td>
+			<td style="text-align:right;">
+				<div class="line" style="margin-left:auto;"></div>
+				<div class="role">HR / Approver</div>
+			</td>
+		</tr>
+	</table>
+</div>
